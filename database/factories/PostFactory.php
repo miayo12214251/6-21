@@ -19,7 +19,8 @@ public function definition()
            $date =fake()->dateTimeBetween('-1 year', 'now');
            
             return [
-            'title' =>$date->format('Y年n月j日'). ' ' . fake()->name(),
+            'created_at2' =>$date->format('Y年n月j日'),
+            'name' =>  fake()->name(),
             'body' => fake()->text($maxNbChars = 6),
         ];
     }
