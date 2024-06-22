@@ -14,6 +14,9 @@
         <div class="content">
             <div class="content__post">
                 <p>投稿者：{{  $post->name  }}</p> 
+                <p>アポ数：{{ $post->appointment }}</p>
+                <p>商談数：{{ $post->meeting }}</p>
+                <p>成約数：{{ $post->contract }}</p>
                 <p>感想：{{ $post->body }}</p>  
                 <p>返信：{{ $post->reply }}</p> 
             </div>

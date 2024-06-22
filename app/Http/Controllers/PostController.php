@@ -10,7 +10,22 @@ class PostController extends Controller
 {
     public function index(Post $post)
     {
-        return view('posts.index')->with(['posts' => $post->getPaginateByLimit()]);
+    $contractData = Post::selectRaw('name, SUM(contract) as total_contract')
+                        ->groupBy('name')
+                        ->orderByDesc('total_contract')
+                        ->get();
+
+    $meetingData = Post::selectRaw('name, SUM(meeting) as total_meeting')
+                        ->groupBy('name')
+                        ->orderByDesc('total_meeting')
+                        ->get();
+
+    $appointmentData = Post::selectRaw('name, SUM(appointment) as total_appointment')
+                            ->groupBy('name')
+                            ->orderByDesc('total_appointment')
+                            ->get();
+                            
+        return view('posts.index')->with(['posts' => $post->getPaginateByLimit(), 'contractData' => $contractData, 'meetingData' => $meetingData, 'appointmentData' => $appointmentData]);
         //getPaginateByLimit()はPost.phpで定義したメソッドです。
     }
     public function show(Post $post)
@@ -20,9 +35,9 @@ class PostController extends Controller
     }
     public function create()
     {
-        $names = Post::pluck('name', 'id'); // Posts テーブルの name フィールドを取得
-
-        return view('posts.create', compact('names'));
+        $names = Post::pluck('name', 'id')->toArray(); // Posts テーブルの name フィールドを取得
+        $persons = array_unique($names);
+        return view('posts.create', compact('persons'));
     }
     public function store(Request $request)
     {
@@ -39,6 +54,9 @@ class PostController extends Controller
         $post->created_at2 = $input['created_at2'];
         $post->name = $input['name'];
         $post->body = $input['body'];
+        $post->appointment = $input['appointment'];
+        $post->meeting = $input['meeting'];
+        $post->contract = $input['contract'];
         $post->save();
     
         return redirect('/posts/' . $post->id);
@@ -59,5 +77,13 @@ class PostController extends Controller
     $post->delete();
     return redirect('/');
 }
+public function statistics()
+    {
+        $data = Post::selectRaw('name, SUM(appointment) as total_appointment, SUM(meeting) as total_meeting, SUM(contract) as total_contract')
+                    ->groupBy('name')
+                    ->get();
+
+        return view('posts.index', compact('data'));
+    }
 
 }
