@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('created_at2', 50);
+            $table->date('created_at2');
             $table->string('name', 50);
             $table->string('body', 200);
             $table->timestamps();
