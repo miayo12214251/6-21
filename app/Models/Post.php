@@ -13,7 +13,7 @@ class Post extends Model
     
     protected $fillable = [
     'created_at2',
-    'name',
+    'person_id',
     'appointment',
     'meeting',
     'contract',
@@ -21,10 +21,14 @@ class Post extends Model
     'reply',
 ];
     
-public function getPaginateByLimit(int $limit_count = 5)
+    public function getPaginateByLimit(int $limit_count = 5)
+        {
+            // updated_atで降順に並べたあと、limitで件数制限をかける
+            return $this->orderBy('created_at2', 'DESC')->paginate($limit_count);
+        }
+    public function person()
     {
-        // updated_atで降順に並べたあと、limitで件数制限をかける
-        return $this->orderBy('created_at2', 'DESC')->paginate($limit_count);
+        return $this->belongsTo(Person::class);
     }
-
+    
 }

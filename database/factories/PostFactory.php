@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Person;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -14,22 +15,20 @@ class PostFactory extends Factory
      *
      * @return array<string, mixed>
      */
-public function definition()
+    public function definition()
     {
-           $date =fake()->dateTimeBetween('-1 year', 'now');
-           
-            $names = [
-            '高橋洋介', '長谷川正久', '米田久美子', '三田彩',
-            '橋本恵理奈', '田中太郎', '山田花子', '秋田涼介'
-            ];
-           
-            return [
-            'created_at2' =>$date->format('Y年n月j日'),
-            'name' =>  fake()->randomElement($names),
-            'body' => fake()->text($maxNbChars = 100),
-            'appointment' => fake()->numberBetween(0,10),
-            'meeting' => fake()->numberBetween(0,5),
-            'contract' => fake()->numberBetween(0,3),
+        $date = $this->faker->dateTimeBetween('-1 year', 'now');
+
+        // People テーブルから全ての ID を取得
+        $peopleIds = Person::pluck('id')->toArray();
+
+        return [
+            'created_at2' => $date,
+            'body' => $this->faker->text($maxNbChars = 100),
+            'appointment' => $this->faker->numberBetween(0, 10),
+            'meeting' => $this->faker->numberBetween(0, 5),
+            'contract' => $this->faker->numberBetween(0, 3),
+            'person_id' => $this->faker->randomElement($peopleIds) // 存在する people テーブルの id をランダムに選択
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PersonController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +18,11 @@ use App\Http\Controllers\PostController;
 
 Route::get('/', [PostController::class, 'index']);
 Route::get('/posts/create', [PostController::class, 'create']);
-Route::get('/posts/{post}', [PostController::class ,'show']);
+Route::get('/posts/statistics', [PostController::class, 'statistics'])->name('posts.statistics');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::post('/posts', [PostController::class, 'store']);
 Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
 Route::put('/posts/{post}', [PostController::class, 'update']);
 Route::delete('/posts/{post}', [PostController::class,'delete']);
-
+Route::get('/person/{person}', [PersonController::class,'index']);
+Route::get('/posts/{post}', [PostController::class ,'show']);
