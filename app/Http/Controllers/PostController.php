@@ -9,7 +9,7 @@ use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
-    public function index(Post $post)
+    public function index(Post $post, Person $person)
     {
         $contractData = Post::selectRaw('person.name as name, SUM(posts.contract) as total_contract')
                             ->join('person', 'posts.person_id', '=', 'person.id')
@@ -33,7 +33,9 @@ class PostController extends Controller
             'posts' => $post->getPaginateByLimit(),
             'contractData' => $contractData,
             'meetingData' => $meetingData, 
-            'appointmentData' => $appointmentData
+            'appointmentData' => $appointmentData,
+            'persons' => $person->get()
+            
         ]);
     }
     
@@ -78,6 +80,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        dd($request);
         $request->validate([
             'post.created_at2' => ['required', 'date'],
             'post.body' => 'required',

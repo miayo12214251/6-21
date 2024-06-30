@@ -26,3 +26,5 @@ Route::put('/posts/{post}', [PostController::class, 'update']);
 Route::delete('/posts/{post}', [PostController::class,'delete']);
 Route::get('/person/{person}', [PersonController::class,'index']);
 Route::get('/posts/{post}', [PostController::class ,'show']);
+Route::get('/team/{team}', [PersonController::class,'team']);
+Route::get('/department/{department}', [PersonController::class,'department']);
