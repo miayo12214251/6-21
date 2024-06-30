@@ -60,7 +60,27 @@
         <h1>営業管理サイト</h1>
         <div class='footer'>
             <a href='/posts/create' class="btn btn-primary">日報入力はこちら</a>
-            <a href='{{ route('posts.statistics') }}' class="btn btn-primary">グラフ一覧へ</a>
+        </div>
+         <h2>名簿一覧</h2>
+ <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>投稿者</th>
+                        <th>所属チーム</th>
+                        <th>所属部署</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($persons->sortBy('team') as $person)
+                    <tr>
+                        <td><a href="/person/{{ $person->id }}">{{ $person->name }}</a></td>
+                        <td><a href="/team/{{ $person->id }}">{{ $person->team }}</a></td>
+                        <td><a href="/department/{{ $person->id }}">{{ $person->department }}</a></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
         
         <div class="chart-container">
@@ -76,9 +96,9 @@
         <div class="chart-container">
             <h2>商談数ランキング</h2>
             <canvas id="myChart3"></canvas>
+                                    <a href='{{ route('posts.statistics') }}' class="btn btn-primary">グラフ一覧へ</a>
         </div>
-
-        <h2>日報一覧</h2>
+       <h2>日報一覧</h2>
         
         <div class="posts">
             @foreach ($posts as $post)
@@ -86,8 +106,8 @@
                     <div class="card-body">
                         <h2 class="card-title h4"><a href="/posts/{{ $post->id }}">{{ date('Y年m月d日', strtotime($post->created_at2)) }}</a></h2>
                         <p class="card-text">投稿者：<a href="/person/{{ $post->person->id }}">{{ $post->person->name }}</a></p>
-                        <p class="card-text">所属チーム：{{ $post->person->team }}</p>
-                        <p class="card-text">所属部署：{{ $post->person->department }}</p>
+                        <p class="card-text">所属チーム：<a href="/team/{{ $post->person->id }}">{{ $post->person->team }}</a></p>
+                        <p class="card-text">所属部署：<a href="/department/{{ $post->person->id }}">{{ $post->person->department }}</a></p>
                         <p class="card-text">アポ数：{{ $post->appointment }}</p>
                         <p class="card-text">商談数：{{ $post->meeting }}</p>
                         <p class="card-text">成約数：{{ $post->contract }}</p>

@@ -33,7 +33,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>グラフ一覧</h1>
+        <h1>営業管理サイト - グラフ一覧</h1>
         
         <div class="chart-container">
             <h2>成約数ランキング</h2>

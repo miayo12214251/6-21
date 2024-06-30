@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <title>{{ $posts[0]->person->name }}日報一覧</title>
+    <title>{{ $posts[0]->team }}日報一覧</title>
     <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -64,9 +64,10 @@
     </style>
 </head>
 <body>
-    <h1>{{ $posts[0]->person->name }} 専用ページ</h1>
+    <h1>{{ $posts[0]->team}} 専用ページ</h1>
     <div class="charts-container">
         <div class="chart-container">
+            
             <h2>月別成約数推移</h2>
             <canvas id="contractsChart"></canvas>
         </div>
@@ -87,9 +88,9 @@
         @foreach ($posts as $post)
             <div class='post'>
                 <h2 class='created_at2'><a href="/posts/{{ $post->id }}">{{{ date('Y年m月d日', strtotime($post->created_at2)) }}}</a></h2>
-                <p class='name'>投稿者：{{ $post->person->name }}</p>
-                <p class='name'>所属チーム：{{ $post->person->team }}</p>
-                <p class='name'>所属部署：{{ $post->person->department }}</p>
+                <p class='name'>投稿者：{{ $post->name }}</p>
+                <p class='name'>所属チーム：{{ $post->team }}</p>
+                <p class='name'>所属部署：{{ $post->department }}</p>
                 <p class='appointment'>アポ数：{{ $post->appointment }}</p>
                 <p class='meeting'>商談数：{{ $post->meeting }}</p>
                 <p class='contract'>成約数：{{ $post->contract }}</p>
@@ -113,7 +114,7 @@
         </div>
         
         <div class="footer">
-            <a href="/" class="btn btn-primary">戻る</a>
+            <a href="/" class="btn btn-secondary">戻る</a>
         </div>
     </div>
 
