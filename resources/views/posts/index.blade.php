@@ -75,7 +75,7 @@
                     @foreach ($persons->sortBy('team') as $person)
                     <tr>
                         <td><a href="/person/{{ $person->id }}">{{ $person->name }}</a></td>
-                        <td><a href="/team/{{ $person->id }}">{{ $person->team }}</a></td>
+                        <td><a href="/team/{{ $person->team }}">{{ $person->team }}</a></td>
                         <td><a href="/department/{{ $person->id }}">{{ $person->department }}</a></td>
                     </tr>
                     @endforeach

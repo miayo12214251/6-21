@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <title>{{ $posts[0]->team }}日報一覧</title>
+    <title>{{ $posts[0]->department }}日報一覧</title>
     <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -64,10 +64,9 @@
     </style>
 </head>
 <body>
-    <h1>{{ $posts[0]->team}} 専用ページ</h1>
+    <h1>{{ $posts[0]->department}} 専用ページ</h1>
     <div class="charts-container">
         <div class="chart-container">
-            
             <h2>月別成約数推移</h2>
             <canvas id="contractsChart"></canvas>
         </div>
